@@ -20,14 +20,14 @@ exports.register = async(req,res)=>{
 }
 
 exports.login = async(req,res)=>{
-    const {username,password,role} = req.body
+    const {username,password} = req.body
    
-    const user = await authenticateUser(username,password,role)
+    const user = await authenticateUser(username,password)
     if(!user){
         res.status(401).send('invalid credentials')
 
     }
-    const token = jwt.sign({userId:user.id,username:user.username,role:user.role},secretKey,{expiresIn:'1hr'});
+    const token = jwt.sign({userId:user.id,username:user.username},secretKey,{expiresIn:'1hr'});
     res.json({message:'logged in',token})
 
 }

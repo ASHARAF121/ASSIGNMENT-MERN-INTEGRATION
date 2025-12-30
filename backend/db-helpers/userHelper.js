@@ -38,11 +38,12 @@ exports.updateUserById = async(updateid,updatedata)=>{
 
 } 
 
-exports.authenticateUser = async(username,password,role)=>{
+exports.authenticateUser = async(username,password)=>{
     try {
         
-        const user = await User.findOne({username,password,role})
-        console.log(user);
+        const user = await User.findOne({username,password})
+   
+        // console.log(user);
         if(!user){
             throw new Error('invalid cresdentials')
         }
