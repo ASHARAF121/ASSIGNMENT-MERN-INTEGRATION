@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Register from './components/register';
 import Login from './components/login';
 import Profile from './components/profile';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 const App = () => {
@@ -16,9 +17,17 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         
         {/* Protected Profile route */}
-        <Route
+        {/* <Route
           path="/profile"
           element={token ? <Profile /> : <Navigate to="/login" />}
+        /> */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
         />
 
         {/* Optionally, Admin page route */}
