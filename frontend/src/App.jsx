@@ -2,7 +2,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Register from './components/register';
-import Login from './components/login';
+import Login from './components/Login';
 import Profile from './components/profile';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -42,6 +42,9 @@ const App = () => {
           element={token ? <Navigate to="/profile" /> : <Navigate to="/login" />}
         />
       </Routes>
+
+      
+       
     </div>
   );
 };

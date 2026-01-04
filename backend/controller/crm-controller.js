@@ -20,26 +20,30 @@ exports.register = async(req,res)=>{
 }
 
 exports.login = async(req,res)=>{
-    const {username,password} = req.body
+    const {username,password,role} = req.body
+    
    
-    const user = await authenticateUser(username,password)
+    const user = await authenticateUser(username,password,role)
+
     if(!user){
         res.status(401).send('invalid credentials')
 
     }
-    const token = jwt.sign({userId:user.id,username:user.username},secretKey,{expiresIn:'1hr'});
+    
+    const token = jwt.sign({userId:user.id,username:user.username,role:user.role},secretKey,{expiresIn:'1hr'});
     res.json({message:'logged in',token})
+    
 
 }
 
 exports.profileInfo = async(req,res)=>{
     try {
-        const {username,role} = req.user;
-        req.user = {username:username,role:role}    
-        res.json({message:'user profile info',user:req.user})
+        
+        const {username, role} = req.user;
+        const userInfo = {username, role};
+        res.json({message:'user profile info', user: userInfo});
     } catch (error) {
         res.status(500).json({message:'error finding user'})
-        
     }
 }
 
